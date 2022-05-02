@@ -18,15 +18,19 @@ const allGalleryImage = galleryItems.map(
   }
 );
 
-// const onKeydown = (e) => {
-//   e.preventDefault();
-// };
-// gallery.addEventListener();
-e.code === "Escape";
-instance.close();
+function onKeydown(e) {
+  e.preventDefault();
+  if (e.code === "Escape") {
+    instance.close();
+  }
+}
+window.addEventListener("Keydown", onKeydown);
 
 const galleryImageFunction = (e) => {
   e.preventDefault();
+  if (e.target.tagName !== "IMG") {
+    return;
+  }
   const instance = basicLightbox.create(
     `<img src="${e.target.dataset.source}" width="1400" height="900">`
   );
