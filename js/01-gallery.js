@@ -8,21 +8,29 @@ const allGalleryImage = galleryItems.map(
     gallery.insertAdjacentHTML(
       "afterbegin",
       `<div class="gallery__item">
-    <a class="gallery__link" href="${preview}">
-    <img class="gallery__image" src="${original}" alt="${description}" />
+    <a class="gallery__link" href="${original}">
+    <img class="gallery__image"
+      data-source="${original}"
+    src="${preview}" alt="${description}" />
         </a>
     </div>`
     );
   }
 );
 
+// const onKeydown = (e) => {
+//   e.preventDefault();
+// };
+// gallery.addEventListener();
+e.code === "Escape";
+instance.close();
+
 const galleryImageFunction = (e) => {
-  const instance = basicLightbox.create(`
-    <img src="e.target.dataset.src" width="800" height="600">
-`);
+  e.preventDefault();
+  const instance = basicLightbox.create(
+    `<img src="${e.target.dataset.source}" width="1400" height="900">`
+  );
 
   instance.show();
-  console.log(instance);
 };
-
 gallery.addEventListener("click", galleryImageFunction);
