@@ -3,31 +3,23 @@ import { galleryItems } from "./gallery-items.js";
 
 const gallery = document.querySelector(".gallery");
 
-const allGalleryImage = galleryItems.map(
-  ({ preview, original, description }) => {
-    gallery.insertAdjacentHTML(
-      "afterbegin",
-      `<div class="gallery__item">
+const allGalleryImage = galleryItems
+  .map(({ preview, original, description }) => {
+    return `<div class="gallery__item">
     <a class="gallery__link" href="${original}">
     <img class="gallery__image"
       data-source="${original}"
     src="${preview}" alt="${description}" />
         </a>
-    </div>`
-    );
-  }
-);
+    </div>`;
+  })
+  .join("");
 
-const onKeydown = (e) => {
-  if (e.code === "Escape") {
-    return;
-  }
-  instance.close();
-};
-window.addEventListener("keydown", onKeydown);
+gallery.insertAdjacentHTML("beforeend", allGalleryImage);
 
 const galleryImageFunction = (e) => {
   e.preventDefault();
+
   if (e.target.tagName !== "IMG") {
     return;
   }
@@ -36,5 +28,13 @@ const galleryImageFunction = (e) => {
   );
 
   instance.show();
+
+  function onKeydown(e) {
+    if (e.code === "Escape") {
+      instance.close();
+      window.removeEventListener("keydown", onKeydown);
+    }
+  }
+  window.addEventListener("keydown", onKeydown);
 };
 gallery.addEventListener("click", galleryImageFunction);
