@@ -18,13 +18,13 @@ const allGalleryImage = galleryItems.map(
   }
 );
 
-function onKeydown(e) {
-  e.preventDefault();
+const onKeydown = (e) => {
   if (e.code === "Escape") {
-    instance.close();
+    return;
   }
-}
-window.addEventListener("Keydown", onKeydown);
+  instance.close();
+};
+window.addEventListener("keydown", onKeydown);
 
 const galleryImageFunction = (e) => {
   e.preventDefault();
